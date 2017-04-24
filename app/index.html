@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html ng-app='musicApp'>
+
+<head>
+     <meta charset="utf-8">
+    <title>Music Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- build:css css/app-name.min.css -->
+    <link rel="stylesheet" type="text/css" href="styles/css/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/css/font-awesome.min.css">
+    <!-- endbuild -->
+</head>
+<body>
+    <div class="wrapper" ng-controller='homeCtrl'>
+        <header>
+            <div id="brand-left">
+                <img src="../images/gl-logo@2x.png">
+            </div>
+            <div id="brand-right">
+                <p>Power by Spotify</p>
+            </div>
+            <div id="brand-center">
+                <img src="../images/hero-img@2x.png">
+            </div>
+            <div class="page-down">
+                <a href="javascript:void(0)" ng-click='scollDown()'>
+                    <img src="../images/Page1@2x.png">
+                </a>
+            </div>
+        </header>
+        <div class="search-form">
+            <div class="homesearch">
+                <div class="homesearch-wrapper">
+                    <form class="homesearch-form" novalidate>
+                        <div class="homesearch-input-wrapper">
+                            <input class="homesearch-input" type="Search" placeholder="Search" ng-model='search_query'>
+                        </div>
+                        <button class="homesearch-submit" type="submit" ng-click='search()'>SEARCH</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="no-results" ng-hide="showResults">
+            <img src="../images/Magnify@2x.png">
+            <p>Your Search Result will be go here</p>
+        </div>
+        <section class="search-results" ng-show="showResults">
+            <div class="profile-card" ng-repeat='data in musicList'>
+                <a href="javascript:void(0)" ng-click='toggleModal(data)'>
+                    <div class="thecard">
+                        <div class="card-img">
+                            <img ng-src="{{data.images[1].url}}">
+                        </div>
+                        <div class="card-img-sm">
+                            <img ng-src="{{data.images[2].url}}" height="70px">
+                        </div>
+                        <div class="card-caption">
+                            <i id="fav-icon" class="fa fa-user-o "></i>
+                            <p>{{data.name}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <button class="showmore-submit" type="submit">SHOW MORE</button>
+        </section>
+        <section class="footer">
+            <p>Dsigned By Geek Label
+                <br>Powered by Spotify</p>
+        </section>
+        <modal-dialog show='modalShown' class='modal'>
+            <div class="img-responsive-height">
+                <img src="{{imagelg}}">
+            </div>
+            <div class="img-sm">
+                <div class="img-sm-left">
+                    <img src="{{imagesm}}">
+                </div>
+                <p>
+                    Album by {{author}}
+                </p>
+            </div>
+            <div class="ng-modal-dialog-content">
+                <div class="track-head">
+                    <h3>Tracks</h3>
+                </div>
+                <div ng-repeat='data in trackList'>
+                    <div class="track-title">
+                        {{data.name}}
+                    </div>
+                    <div class="audio-track">
+                        {{ "182000" | formatDuration }}
+                    </div>
+                </div>
+            </div>
+        </modal-dialog>
+    </div>
+        <!-- bower:js -->
+    <script type="text/javascript"  src="scripts/lib/angular/angular.js"></script>
+    <script type="text/javascript"  src="scripts/lib/angular-cookies/angular-cookies.js"></script>
+        <!-- endbower -->
+        <!-- build:js({.tmp,app}) scripts/SCRIPTS.js -->
+    <script type="text/javascript" src='scripts/app.js'></script>
+    <script type="text/javascript" src='scripts/services/configService.js'></script>
+    <script type="text/javascript" src='scripts/services/musicService.js'></script>
+    <script type="text/javascript" src='scripts/controllers/homeCtrl.js'></script>
+    <!-- endbuild -->
+</body>
+
+</html>
